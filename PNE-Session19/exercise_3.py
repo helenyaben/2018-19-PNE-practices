@@ -15,9 +15,11 @@ that username:
 import http.client
 import json
 
+user_input = input('Enter the name of a github user: ')
+
 HOSTNAME = "api.github.com"
 ENDPOINT = "/users/"
-GITHUB_ID = "Obijuan"
+GITHUB_ID = user_input
 METHOD = "GET"
 
 headers = {'User-Agent': 'http-client'}
@@ -49,47 +51,61 @@ print("Repos: {}".format(nrepos))
 print("Bio: \n{}".format(bio))
 
 """
+
 REQUEST 2: 
 -NAMES OF THE PUBLIC REPOS
--TOTAL NUMBER OF COMMITS IN THE 2018-19-PNE-practices repo
- """
 
+"""
 
-import http.client
-import json
-
-HOSTNAME = "api.github.com"
-ENDPOINT = "/users/"
-GITHUB_ID = "Obijuan"
+ENDPOINT_2 = "/repos"
 METHOD = "GET"
 
-headers = {'User-Agent': 'http-client'}
 
-conn = http.client.HTTPSConnection(HOSTNAME)
+conn.request(METHOD, ENDPOINT + GITHUB_ID + ENDPOINT_2, None, headers)
 
-conn.request(METHOD, ENDPOINT + GITHUB_ID, None, headers)
-
-r1 = conn.getresponse()
+r2 = conn.getresponse()
 
 print()
 print("Response received: ", end='')
-print(r1.status, r1.reason)
+print(r2.status, r2.reason)
+print()
 
-text_json = r1.read().decode("utf-8")
+text_json = r2.read().decode("utf-8")
 conn.close()
 
-user = json.loads(text_json)
+repos = json.loads(text_json)
+counter = 0
+for element in range(len(repos)):
+    counter += 1
+print("The number of repos is: {}".format(counter))
 
-login = user['login']
-name = user['name']
-bio = user['bio']
-nrepos = user['public_repos']
+for element in range(len(repos)):
+    print(' -{}.{}'.format(element, repos[element]["name"]))
+
+
+"""
+
+REQUEST 3: 
+-Commits in 2018-19-PNE-practices
+
+"""
+
+ENDPOINT_3 = "/2018-19-PNE-practices/stats/contributors"
+METHOD = "GET"
+
+
+conn.request(METHOD, ENDPOINT_2 + "/" + GITHUB_ID + ENDPOINT_3, None, headers)
+
+r3 = conn.getresponse()
 
 print()
-print("User: {}".format(login))
-print("Name: {}".format(name))
-print("Repos: {}".format(nrepos))
-print("Bio: \n{}".format(bio))
+print("Response received: ", end='')
+print(r3.status, r3.reason)
+print()
 
-'''d'''
+text_json = r3.read().decode("utf-8")
+conn.close()
 
+commits = json.loads(text_json)
+
+print("The total number of commits in the 2018-19-PNE-practices is: {}".format(commits[0]["total"]))
