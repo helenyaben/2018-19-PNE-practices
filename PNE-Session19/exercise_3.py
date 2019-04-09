@@ -74,6 +74,8 @@ text_json = r2.read().decode("utf-8")
 conn.close()
 
 repos = json.loads(text_json)
+
+# We create a counter startint at 0 to find the number of repos the dictionary has (as elements)
 counter = 0
 for element in range(len(repos)):
     counter += 1
