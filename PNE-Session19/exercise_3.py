@@ -106,6 +106,7 @@ print(r3.status, r3.reason)
 print()
 
 text_json = r3.read().decode("utf-8")
+
 conn.close()
 
 commits = json.loads(text_json)
