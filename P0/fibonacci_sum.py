@@ -2,27 +2,32 @@
 
 our_number = int(input('Enter a number to proceed: '))
 
+
 def fib(n):
     a = 0
     b = 1
-    if n < 0:
-        print("Incorrect input")
-    elif n == 0:
-        return a
+    count = 0
+    empty_list =[]
+
+    #Check if the introduced integer is valid
+    if n <= 0:
+        print("Incorrect input, enter a positive integer")
+
     elif n == 1:
-        return b
+        print(b)
+
     else:
-        for i in range(2,n+1):
-            c = a + b
+        while count < n:
+            #We append each value of the fibonacci series to an empty list in order to print it later
+            empty_list.append(a)
+            nth = a + b
+            #Update values
             a = b
-            b = c
-        return b
+            b = nth
+            count += 1
+        print("The total sum for {} elements of fibonacci series is: {}".format(n, sum(empty_list)))
 
-sum = 0
 
-for i in range(our_number + 1):
-    fibo = fib(i)
-    sum = sum + fib(i)
-print(sum)
+fib(our_number)
 
 

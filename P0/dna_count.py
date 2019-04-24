@@ -14,7 +14,3 @@ print('The number of thymine nucleotides is:  ', seq.count('T'))
 print('The number of cytosine nucleotides is: ', seq.count('C'))
 print('The number of uracil nucleotides is: ', seq.count('U'))
 
-a = int(seq.count('A'))
-
-percentage = a/len_seq
-print(percentage)
